@@ -1,4 +1,4 @@
-/* Reset & base */
+\/* Reset & base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,18 +15,20 @@ body {
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
+  height: 100vh; /* Fix body height for layout control */
 }
 
 /* Header */
 header {
-  padding: 1rem 1rem; /* reduced vertical padding */
+  padding: 1rem 1rem;
   text-align: center;
   background: #14274e;
   box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  flex-shrink: 0;
 }
 
 .logo {
-  height: 45px; /* smaller logo height */
+  height: 45px;
   width: auto;
   user-select: none;
   pointer-events: none;
@@ -34,28 +36,30 @@ header {
 
 /* Main layout */
 main {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   justify-content: center;
   gap: 3rem;
-  padding: 1.5rem 1rem 3rem; /* reduced top padding for quick access */
-  flex-wrap: wrap;
+  padding: 1.5rem 1rem 3rem;
   max-width: 900px;
   margin: 0 auto;
+  height: calc(100vh - 100px); /* viewport minus header & footer approx */
+  overflow: hidden; /* prevent main scroll */
 }
 
-/* Clicker container */
+/* Clicker container - bigger */
 .clicker-container {
   background: #1c2541cc;
   border-radius: 20px;
   padding: 2.5rem 3rem 3rem;
-  width: 350px;
+  width: 420px; /* bigger width */
   box-shadow: 0 0 35px #fca311bb;
   text-align: center;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .score-label {
@@ -68,7 +72,7 @@ main {
 }
 
 .score-value {
-  font-size: 4rem;
+  font-size: 4.5rem; /* bigger number */
   font-weight: 700;
   margin-bottom: 1.8rem;
   color: #ffcb05;
@@ -76,11 +80,11 @@ main {
   letter-spacing: 0.05em;
 }
 
-/* Clicker wrapper for feedback */
+/* Clicker wrapper */
 .clicker-wrapper {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 350px; /* bigger clicker */
+  height: 350px;
   cursor: pointer;
   border-radius: 20px;
   box-shadow: 0 5px 25px #fca311cc;
@@ -106,31 +110,39 @@ main {
   transform: scale(0.93);
 }
 
-/* Click feedback bubble */
-.click-feedback {
+/* Container for falling balls inside clicker-wrapper */
+.falling-balls-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 3px solid #fca311;
-  opacity: 0;
-  animation: click-pop 0.6s ease forwards;
-  box-shadow: 0 0 20px #fca311aa;
-  z-index: 10;
+  overflow: visible;
+  z-index: 15;
 }
 
-@keyframes click-pop {
+/* Each falling ball */
+.falling-ball {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-image: url('assets/rocket-league-ball.png'); /* Your RL ball image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 1;
+  animation: fallDown 1.5s forwards ease-in;
+}
+
+/* Falling animation */
+@keyframes fallDown {
   0% {
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+    transform: translate(0, 0);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(2.5);
+    transform: translate(var(--x-move, 0px), 100px);
   }
 }
 
@@ -154,17 +166,36 @@ main {
   transition: width 0.3s ease;
 }
 
-/* Shop panel */
+/* Shop panel - smaller, scrollable */
 .shop-panel {
   background: #14274ecc;
   border-radius: 20px;
-  width: 300px;
+  width: 280px;
+  max-height: 520px; /* fixed max height */
   padding: 2.5rem 2rem;
   box-shadow: 0 0 30px #fca311bb;
   display: flex;
   flex-direction: column;
   align-items: center;
   user-select: none;
+  overflow-y: auto; /* enable vertical scroll */
+  scrollbar-width: thin;
+  scrollbar-color: #fca311 #14274e;
+}
+
+.shop-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.shop-panel::-webkit-scrollbar-track {
+  background: #14274e;
+  border-radius: 20px;
+}
+
+.shop-panel::-webkit-scrollbar-thumb {
+  background-color: #fca311;
+  border-radius: 20px;
+  border: 2px solid #14274e;
 }
 
 .shop-panel h2 {
@@ -189,6 +220,7 @@ main {
   box-shadow: 0 5px 15px #fca311cc;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
+  margin-bottom: 1rem;
   user-select: none;
   user-drag: none;
 }
@@ -206,6 +238,7 @@ footer {
   font-size: 0.9rem;
   color: #fca311bb;
   box-shadow: 0 -2px 6px rgba(0,0,0,0.5);
+  flex-shrink: 0;
   user-select: none;
 }
 
@@ -214,13 +247,15 @@ footer {
   main {
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
+    height: auto;
   }
 
   .clicker-container,
   .shop-panel {
     width: 90%;
-    max-width: 360px;
+    max-width: none;
+    max-height: none;
   }
 
   .clicker-wrapper {
@@ -231,5 +266,9 @@ footer {
   #clicker {
     width: 100%;
     height: auto;
+  }
+
+  .shop-panel {
+    overflow-y: visible;
   }
 }
