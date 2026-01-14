@@ -9,11 +9,16 @@ const goalsPerClickSpan = document.getElementById("goalsPerClick");
 const clickerWrapper = document.getElementById("clickerWrapper");
 const boostBtn = document.getElementById("boostBtn");
 const progressFill = document.getElementById("progressFill");
-
 const newsTextElement = document.getElementById("newsText");
 
-const tabs = document.querySelectorAll(".tab-btn");
-const tabContents = document.querySelectorAll(".tab-content");
+const achievementsBtn = document.getElementById("achievementsBtn");
+const settingsBtn = document.getElementById("settingsBtn");
+const achievementsModal = document.getElementById("achievementsModal");
+const settingsModal = document.getElementById("settingsModal");
+const closeAchievementsBtn = document.getElementById("closeAchievementsBtn");
+const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+
+const buildingsList = document.getElementById("buildingsList");
 
 // News ticker messages depending on goals
 const newsMessages = [
@@ -28,6 +33,24 @@ const newsMessages = [
 
 let currentNewsIndex = -1;
 
+const buildingData = [
+  { name: "Bronze Player", baseCost: 15 },
+  { name: "Silver Player", baseCost: 100 },
+  { name: "Gold Player", baseCost: 1000 },
+  { name: "Platinum Player", baseCost: 3500 },
+  { name: "Diamond Player", baseCost: 12000 },
+  { name: "Champion Player", baseCost: 50000 },
+  { name: "Grand Champion", baseCost: 300000 },
+  { name: "Supersonic Legend (SSL)", baseCost: 900000 },
+  { name: "RLCS Team", baseCost: 2500000 }
+];
+
+let buildings = buildingData.map((b) => ({
+  ...b,
+  count: 0,
+  cost: b.baseCost,
+}));
+
 function updateUI() {
   goalsSpan.textContent = goals;
   boostCostSpan.textContent = boostCost;
@@ -41,6 +64,7 @@ function updateUI() {
   progressFill.style.width = progressPercent + "%";
 
   updateNewsTicker(goals);
+  renderBuildings();
 }
 
 function animateClickFeedback() {
@@ -72,7 +96,6 @@ clickerWrapper.addEventListener("click", () => {
   animateClickFeedback();
 });
 
-// Shop button buy boost
 boostBtn.addEventListener("click", () => {
   if (goals >= boostCost) {
     goals -= boostCost;
@@ -84,7 +107,9 @@ boostBtn.addEventListener("click", () => {
   }
 });
 
-// Tab switching logic
+// Tab switching logic (shop/upgrades)
+const tabs = document.querySelectorAll(".tab-btn");
+const tabContents = document.querySelectorAll(".tab-content");
 tabs.forEach((tabBtn) => {
   tabBtn.addEventListener("click", () => {
     const targetTab = tabBtn.getAttribute("data-tab");
@@ -100,9 +125,79 @@ tabs.forEach((tabBtn) => {
   });
 });
 
+// Render buildings list with mystery unlock logic
+function renderBuildings() {
+  buildingsList.innerHTML = "";
+
+  buildings.forEach((building, i) => {
+    // Determine if building is unlocked, mystery, or locked:
+    // mystery if goals >= 75% of cost but < cost, locked if below 75% cost
+    const mysteryThreshold = building.cost * 0.75;
+    let isUnlocked = goals >= building.cost;
+    let isMystery = !isUnlocked && goals >= mysteryThreshold;
+    let isLocked = !isUnlocked && goals < mysteryThreshold;
+
+    const buildingDiv = document.createElement("div");
+    buildingDiv.classList.add("building-item");
+    if (isLocked) buildingDiv.classList.add("locked");
+    else buildingDiv.classList.add("unlocked");
+
+    // On click buy if unlocked
+    if (isUnlocked) {
+      buildingDiv.style.cursor = "pointer";
+      buildingDiv.addEventListener("click", () => {
+        if (goals >= building.cost) {
+          goals -= building.cost;
+          building.count++;
+          // Increase cost exponentially
+          building.cost = Math.floor(building.baseCost * Math.pow(1.15, building.count));
+          updateUI();
+        } else {
+          alert("Not enough goals for " + building.name);
+        }
+      });
+    }
+
+    const infoDiv = document.createElement("div");
+    infoDiv.classList.add("building-info");
+
+    const nameSpan = document.createElement("span");
+    nameSpan.classList.add("building-name");
+
+    if (isLocked) {
+      nameSpan.textContent = "???";
+      const mysterySpan = document.createElement("span");
+      mysterySpan.classList.add("mystery-text");
+      mysterySpan.textContent = "???";
+      infoDiv.appendChild(nameSpan);
+      infoDiv.appendChild(mysterySpan);
+    } else if (isMystery) {
+      nameSpan.textContent = "???";
+      const costSpan = document.createElement("span");
+      costSpan.classList.add("building-cost");
+      costSpan.textContent = `Cost: ${building.cost}`;
+      infoDiv.appendChild(nameSpan);
+      infoDiv.appendChild(costSpan);
+    } else {
+      nameSpan.textContent = building.name;
+      const countSpan = document.createElement("span");
+      countSpan.classList.add("building-count");
+      countSpan.textContent = `Owned: ${building.count}`;
+      const costSpan = document.createElement("span");
+      costSpan.classList.add("building-cost");
+      costSpan.textContent = `Cost: ${building.cost}`;
+      infoDiv.appendChild(nameSpan);
+      infoDiv.appendChild(countSpan);
+      infoDiv.appendChild(costSpan);
+    }
+
+    buildingDiv.appendChild(infoDiv);
+    buildingsList.appendChild(buildingDiv);
+  });
+}
+
 // Update news ticker text based on goals
 function updateNewsTicker(currentGoals) {
-  // Find highest message below currentGoals
   let newIndex = 0;
   for (let i = newsMessages.length - 1; i >= 0; i--) {
     if (currentGoals >= newsMessages[i].minGoals) {
@@ -120,6 +215,42 @@ function updateNewsTicker(currentGoals) {
     newsTextElement.style.animation = null;
   }
 }
+
+// Achievements modal toggling
+achievementsBtn.addEventListener("click", () => {
+  achievementsModal.hidden = false;
+  achievementsModal.querySelector(".close-modal").focus();
+});
+
+closeAchievementsBtn.addEventListener("click", () => {
+  achievementsModal.hidden = true;
+  achievementsBtn.focus();
+});
+
+// Settings modal toggling
+settingsBtn.addEventListener("click", () => {
+  settingsModal.hidden = false;
+  settingsModal.querySelector(".close-modal").focus();
+});
+
+closeSettingsBtn.addEventListener("click", () => {
+  settingsModal.hidden = true;
+  settingsBtn.focus();
+});
+
+// Close modals on ESC key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (!achievementsModal.hidden) {
+      achievementsModal.hidden = true;
+      achievementsBtn.focus();
+    }
+    if (!settingsModal.hidden) {
+      settingsModal.hidden = true;
+      settingsBtn.focus();
+    }
+  }
+});
 
 // Initial UI update
 updateUI();
