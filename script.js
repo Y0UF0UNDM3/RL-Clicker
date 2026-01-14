@@ -35,10 +35,27 @@ function updateUI() {
 }
 
 function animateClickFeedback() {
-  const feedback = document.createElement("div");
-  feedback.classList.add("click-feedback");
-  document.querySelector(".clicker-wrapper").appendChild(feedback);
-  feedback.addEventListener("animationend", () => feedback.remove());
+  const container = document.querySelector(".falling-balls-container");
+  const ballCount = 5; // number of balls to spawn per click
+
+  for (let i = 0; i < ballCount; i++) {
+    const ball = document.createElement("div");
+    ball.classList.add("falling-ball");
+
+    // Calculate random horizontal start within container width minus ball width
+    const startX = Math.random() * (container.clientWidth - 24);
+    const xMove = (Math.random() * 60 - 30).toFixed(2); // random horizontal drift -30 to +30 px
+
+    ball.style.left = `${startX}px`;
+    ball.style.top = `0px`;
+    ball.style.setProperty('--x-move', `${xMove}px`);
+
+    container.appendChild(ball);
+
+    ball.addEventListener("animationend", () => {
+      ball.remove();
+    });
+  }
 }
 
 updateUI();
