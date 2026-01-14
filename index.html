@@ -12,19 +12,23 @@
       <img src="assets/Rocket_League_logo.svg.png" alt="Rocket League Logo" class="logo" />
       <h1>Rocket League Clicker</h1>
     </div>
+    <div class="header-center">
+      <div class="news-ticker-container">
+        <div class="news-ticker" aria-live="polite">
+          <div class="news-text" id="newsText">
+            Welcome to Rocket League Clicker! Score goals to unlock new features!
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="header-right">
-      <div class="goals-counter">
+      <button class="header-btn" id="achievementsBtn" aria-label="Open Achievements">Achievements</button>
+      <button class="header-btn" id="settingsBtn" aria-label="Open Settings">Settings</button>
+      <div class="goals-counter" aria-live="polite">
         Goals: <span id="goals">0</span>
       </div>
     </div>
   </header>
-
-  <!-- News ticker below header -->
-  <div class="news-ticker">
-    <div class="news-text" id="newsText">
-      Welcome to Rocket League Clicker! Score goals to unlock new features!
-    </div>
-  </div>
 
   <main>
     <section class="clicker-section">
@@ -45,14 +49,17 @@
       </div>
     </section>
 
-    <section class="sidebar" role="complementary" aria-label="Game tabs and shop">
+    <section class="buildings-section" aria-label="Buildings panel">
+      <h2>Buildings</h2>
+      <div class="buildings-list" id="buildingsList" tabindex="0">
+        <!-- Buildings inserted by JS -->
+      </div>
+    </section>
+
+    <section class="sidebar" role="complementary" aria-label="Shop and other tabs">
       <nav class="tabs" role="tablist" aria-label="Game sections tabs">
         <button class="tab-btn active" data-tab="shop" role="tab" aria-selected="true" aria-controls="shop" id="tab-shop">Shop</button>
-        <button class="tab-btn" data-tab="buildings" role="tab" aria-selected="false" aria-controls="buildings" id="tab-buildings">Buildings</button>
         <button class="tab-btn" data-tab="upgrades" role="tab" aria-selected="false" aria-controls="upgrades" id="tab-upgrades">Upgrades</button>
-        <button class="tab-btn" data-tab="achievements" role="tab" aria-selected="false" aria-controls="achievements" id="tab-achievements">Achievements</button>
-        <button class="tab-btn" data-tab="news" role="tab" aria-selected="false" aria-controls="news" id="tab-news">News</button>
-        <button class="tab-btn" data-tab="settings" role="tab" aria-selected="false" aria-controls="settings" id="tab-settings">Settings</button>
       </nav>
 
       <div class="tab-content" id="shop" role="tabpanel" aria-labelledby="tab-shop" tabindex="0" style="display: block;">
@@ -62,32 +69,29 @@
         </button>
       </div>
 
-      <div class="tab-content" id="buildings" role="tabpanel" aria-labelledby="tab-buildings" tabindex="0" style="display: none;">
-        <h2>Buildings</h2>
-        <p>Coming soon...</p>
-      </div>
-
       <div class="tab-content" id="upgrades" role="tabpanel" aria-labelledby="tab-upgrades" tabindex="0" style="display: none;">
         <h2>Upgrades</h2>
         <p>Coming soon...</p>
       </div>
-
-      <div class="tab-content" id="achievements" role="tabpanel" aria-labelledby="tab-achievements" tabindex="0" style="display: none;">
-        <h2>Achievements</h2>
-        <p>Coming soon...</p>
-      </div>
-
-      <div class="tab-content" id="news" role="tabpanel" aria-labelledby="tab-news" tabindex="0" style="display: none;">
-        <h2>News</h2>
-        <p>This news tab complements the news ticker above.</p>
-      </div>
-
-      <div class="tab-content" id="settings" role="tabpanel" aria-labelledby="tab-settings" tabindex="0" style="display: none;">
-        <h2>Settings</h2>
-        <p>Coming soon...</p>
-      </div>
     </section>
   </main>
+
+  <!-- Modal panels for Achievements and Settings -->
+  <div class="modal" id="achievementsModal" role="dialog" aria-modal="true" aria-labelledby="achievementsTitle" hidden>
+    <div class="modal-content">
+      <h2 id="achievementsTitle">Achievements</h2>
+      <p>Coming soon...</p>
+      <button class="close-modal" aria-label="Close Achievements" id="closeAchievementsBtn">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
+    <div class="modal-content">
+      <h2 id="settingsTitle">Settings</h2>
+      <p>Coming soon...</p>
+      <button class="close-modal" aria-label="Close Settings" id="closeSettingsBtn">Close</button>
+    </div>
+  </div>
 
   <footer>
     <p>Made for Rocket League fans</p>
