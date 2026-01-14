@@ -12,10 +12,7 @@
   </header>
 
   <main>
-    <section class="clicker-container">
-      <p class="score-label">Goals Scored</p>
-      <p id="goals" class="score-value">0</p>
-
+    <section class="left-panel">
       <div class="clicker-wrapper">
         <img
           src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
@@ -26,17 +23,23 @@
         <div class="falling-balls-container"></div>
       </div>
 
+      <div class="score-display">
+        <p>Goals Scored:</p>
+        <p id="goals" class="score-value">0</p>
+      </div>
+
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
     </section>
 
-    <aside class="shop-panel">
+    <section class="right-panel">
       <h2>Shop</h2>
       <button id="boostBtn" class="shop-btn">
         Buy Boost (+1 goal/click) – Cost: <span id="boostCost">10</span>
       </button>
-    </aside>
+      <!-- Add more shop items here -->
+    </section>
   </main>
 
   <footer>
