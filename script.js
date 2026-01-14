@@ -97,3 +97,29 @@ tabs.forEach((tabBtn) => {
     tabContents.forEach((tabContent) => {
       tabContent.style.display = tabContent.id === targetTab ? "block" : "none";
     });
+  });
+});
+
+// Update news ticker text based on goals
+function updateNewsTicker(currentGoals) {
+  // Find highest message below currentGoals
+  let newIndex = 0;
+  for (let i = newsMessages.length - 1; i >= 0; i--) {
+    if (currentGoals >= newsMessages[i].minGoals) {
+      newIndex = i;
+      break;
+    }
+  }
+  if (newIndex !== currentNewsIndex) {
+    currentNewsIndex = newIndex;
+    newsTextElement.textContent = newsMessages[newIndex].text;
+
+    // Restart marquee animation
+    newsTextElement.style.animation = "none";
+    newsTextElement.offsetHeight; // trigger reflow
+    newsTextElement.style.animation = null;
+  }
+}
+
+// Initial UI update
+updateUI();
