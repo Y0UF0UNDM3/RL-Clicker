@@ -1,28 +1,156 @@
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #0b132b;
-  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%);
+  color: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header */
+header {
+  padding: 2rem 1rem;
   text-align: center;
-  padding-top: 40px;
+  background: #14274e;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+
+header h1 {
+  font-weight: 700;
+  font-size: 2.8rem;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 8px #fca311;
+}
+
+/* Main layout */
+main {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+  padding: 3rem 1rem;
+}
+
+/* Clicker card */
+.clicker-card {
+  background: #1c2541cc;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 320px;
+  box-shadow: 0 0 20px #fca311aa;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.clicker-card:hover {
+  box-shadow: 0 0 35px #fca311ee;
+}
+
+.score-label {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: #fca311;
+  letter-spacing: 0.1em;
+}
+
+.score-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #ffcb05;
+  text-shadow: 1px 1px 8px #ffb703;
 }
 
 #clicker {
-  width: 300px;
+  width: 260px;
+  border-radius: 12px;
   cursor: pointer;
+  box-shadow: 0 4px 15px #fca311aa;
   transition: transform 0.1s ease;
 }
 
 #clicker:active {
   transform: scale(0.95);
+  box-shadow: 0 2px 10px #fca311cc;
 }
 
-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  margin-top: 20px;
-  cursor: pointer;
-  border-radius: 8px;
-  border: none;
+/* Shop panel */
+.shop-panel {
+  background: #14274ecc;
+  border-radius: 16px;
+  width: 280px;
+  padding: 2rem;
+  box-shadow: 0 0 20px #fca311aa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop-panel h2 {
+  color: #fca311;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+  text-shadow: 1px 1px 4px #ffb703;
+}
+
+.shop-btn {
   background: #fca311;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 25px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #14274e;
+  cursor: pointer;
+  box-shadow: 0 4px 10px #fca311cc;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
+.shop-btn:hover {
+  background-color: #ffb703;
+  box-shadow: 0 6px 15px #ffb703ee;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  background: #14274e;
+  font-size: 0.9rem;
+  color: #fca311bb;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 720px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clicker-card, .shop-panel {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  #clicker {
+    width: 100%;
+    max-width: 300px;
+  }
+}
