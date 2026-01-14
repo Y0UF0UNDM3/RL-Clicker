@@ -19,14 +19,14 @@ body {
 
 /* Header */
 header {
-  padding: 2rem 1rem;
+  padding: 1rem 1rem; /* reduced vertical padding */
   text-align: center;
   background: #14274e;
   box-shadow: 0 2px 6px rgba(0,0,0,0.7);
 }
 
 .logo {
-  height: 70px;
+  height: 45px; /* smaller logo height */
   width: auto;
   user-select: none;
   pointer-events: none;
@@ -37,8 +37,8 @@ main {
   flex: 1;
   display: flex;
   justify-content: center;
-  gap: 4rem;
-  padding: 3rem 1rem;
+  gap: 3rem;
+  padding: 1.5rem 1rem 3rem; /* reduced top padding for quick access */
   flex-wrap: wrap;
   max-width: 900px;
   margin: 0 auto;
