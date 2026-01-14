@@ -1,1 +1,28 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0b132b;
+  color: white;
+  text-align: center;
+  padding-top: 40px;
+}
+
+#clicker {
+  width: 300px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+#clicker:active {
+  transform: scale(0.95);
+}
+
+button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background: #fca311;
+}
 
