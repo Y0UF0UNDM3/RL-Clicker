@@ -1,4 +1,4 @@
-\/* Reset & base */
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,88 +13,57 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  overflow-x: hidden;
-  height: 100vh; /* Fix body height for layout control */
+  height: 100vh;
 }
 
-/* Header */
 header {
-  padding: 1rem 1rem;
-  text-align: center;
   background: #14274e;
+  padding: 10px 20px;
+  text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.7);
   flex-shrink: 0;
 }
 
 .logo {
-  height: 45px;
-  width: auto;
+  height: 50px;
   user-select: none;
   pointer-events: none;
 }
 
-/* Main layout */
 main {
-  flex: 1 1 auto;
+  flex: 1;
   display: flex;
-  justify-content: center;
-  gap: 3rem;
-  padding: 1.5rem 1rem 3rem;
-  max-width: 900px;
-  margin: 0 auto;
-  height: calc(100vh - 100px); /* viewport minus header & footer approx */
-  overflow: hidden; /* prevent main scroll */
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 40px;
+  padding: 0 20px;
+  overflow: hidden;
 }
 
-/* Clicker container - bigger */
-.clicker-container {
-  background: #1c2541cc;
-  border-radius: 20px;
-  padding: 2.5rem 3rem 3rem;
-  width: 420px; /* bigger width */
-  box-shadow: 0 0 35px #fca311bb;
-  text-align: center;
-  position: relative;
+/* Left panel with big clicker */
+.left-panel {
+  flex: 1 1 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
 }
 
-.score-label {
-  font-size: 1.3rem;
-  margin-bottom: 0.25rem;
-  font-weight: 600;
-  color: #fca311;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.score-value {
-  font-size: 4.5rem; /* bigger number */
-  font-weight: 700;
-  margin-bottom: 1.8rem;
-  color: #ffcb05;
-  text-shadow: 1px 1px 10px #ffb703;
-  letter-spacing: 0.05em;
-}
-
-/* Clicker wrapper */
+/* Clicker area */
 .clicker-wrapper {
   position: relative;
-  width: 350px; /* bigger clicker */
+  width: 350px;
   height: 350px;
-  cursor: pointer;
   border-radius: 20px;
-  box-shadow: 0 5px 25px #fca311cc;
+  box-shadow: 0 0 40px #fca311cc;
+  cursor: pointer;
   overflow: visible;
-  user-select: none;
+  background: #1c2541cc;
   transition: box-shadow 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .clicker-wrapper:hover {
-  box-shadow: 0 8px 35px #fca311ee;
+  box-shadow: 0 0 60px #fca311ee;
 }
 
 #clicker {
@@ -110,7 +79,7 @@ main {
   transform: scale(0.93);
 }
 
-/* Container for falling balls inside clicker-wrapper */
+/* Falling balls container */
 .falling-balls-container {
   position: absolute;
   top: 0;
@@ -122,19 +91,17 @@ main {
   z-index: 15;
 }
 
-/* Each falling ball */
 .falling-ball {
   position: absolute;
   width: 24px;
   height: 24px;
-  background-image: url('assets/rocket-league-ball.png'); /* Your RL ball image */
+  background-image: url('assets/rocket-league-ball.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 1;
   animation: fallDown 1.5s forwards ease-in;
 }
 
-/* Falling animation */
 @keyframes fallDown {
   0% {
     opacity: 1;
@@ -146,9 +113,31 @@ main {
   }
 }
 
+/* Score display */
+.score-display {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.score-display p:first-child {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fca311;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.score-value {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffcb05;
+  text-shadow: 1px 1px 10px #ffb703;
+  letter-spacing: 0.05em;
+}
+
 /* Progress bar */
 .progress-bar {
-  margin-top: 2rem;
   width: 100%;
   height: 18px;
   background: #14274e;
@@ -166,53 +155,36 @@ main {
   transition: width 0.3s ease;
 }
 
-/* Shop panel - smaller, scrollable */
-.shop-panel {
+/* Right panel (shop) */
+.right-panel {
+  flex: 0 0 320px;
   background: #14274ecc;
   border-radius: 20px;
-  width: 280px;
-  max-height: 520px; /* fixed max height */
-  padding: 2.5rem 2rem;
-  box-shadow: 0 0 30px #fca311bb;
+  padding: 25px 20px;
+  box-shadow: 0 0 40px #fca311bb;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 15px;
+  max-height: 600px;
   user-select: none;
-  overflow-y: auto; /* enable vertical scroll */
-  scrollbar-width: thin;
-  scrollbar-color: #fca311 #14274e;
 }
 
-.shop-panel::-webkit-scrollbar {
-  width: 8px;
-}
-
-.shop-panel::-webkit-scrollbar-track {
-  background: #14274e;
-  border-radius: 20px;
-}
-
-.shop-panel::-webkit-scrollbar-thumb {
-  background-color: #fca311;
-  border-radius: 20px;
-  border: 2px solid #14274e;
-}
-
-.shop-panel h2 {
-  color: #fca311;
+.right-panel h2 {
+  font-size: 2.5rem;
   font-weight: 700;
-  font-size: 2.3rem;
-  margin-bottom: 2rem;
-  letter-spacing: 0.1em;
-  text-shadow: 1px 1px 6px #ffb703;
-  user-select: none;
+  color: #fca311;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 8px #ffb703;
 }
 
+/* Shop button style */
 .shop-btn {
   background: #fca311;
   border: none;
   border-radius: 14px;
-  padding: 18px 30px;
+  padding: 18px 25px;
   font-size: 1.3rem;
   font-weight: 700;
   color: #14274e;
@@ -220,9 +192,6 @@ main {
   box-shadow: 0 5px 15px #fca311cc;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  margin-bottom: 1rem;
-  user-select: none;
-  user-drag: none;
 }
 
 .shop-btn:hover {
@@ -233,42 +202,44 @@ main {
 /* Footer */
 footer {
   text-align: center;
-  padding: 1rem 0;
+  padding: 12px 0;
   background: #14274e;
   font-size: 0.9rem;
   color: #fca311bb;
   box-shadow: 0 -2px 6px rgba(0,0,0,0.5);
   flex-shrink: 0;
-  user-select: none;
 }
 
 /* Responsive */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   main {
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    height: auto;
+    gap: 30px;
   }
 
-  .clicker-container,
-  .shop-panel {
+  .left-panel,
+  .right-panel {
     width: 90%;
     max-width: none;
     max-height: none;
+    overflow: visible;
+  }
+
+  .right-panel {
+    padding: 20px;
   }
 
   .clicker-wrapper {
-    width: 100%;
-    height: auto;
+    width: 300px;
+    height: 300px;
   }
 
-  #clicker {
-    width: 100%;
-    height: auto;
+  .score-value {
+    font-size: 3.5rem;
   }
 
-  .shop-panel {
-    overflow-y: visible;
+  .right-panel h2 {
+    font-size: 2rem;
   }
 }
