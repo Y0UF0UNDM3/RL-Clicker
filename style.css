@@ -17,53 +17,115 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #14274e;
-  padding: 10px 20px;
-  text-align: center;
+  padding: 12px 30px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.7);
   flex-shrink: 0;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .logo {
-  height: 50px;
+  height: 40px;
   user-select: none;
   pointer-events: none;
 }
 
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fca311;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.header-right .goals-counter {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffcb05;
+  text-shadow: 1px 1px 5px #ffb703;
+  user-select: none;
+}
+
+/* News ticker styling */
+.news-ticker {
+  background: #fca311;
+  color: #14274e;
+  font-weight: 700;
+  height: 32px;
+  line-height: 32px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px #fca311cc;
+  user-select: none;
+  padding-left: 100%; /* start off-screen */
+  position: relative;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* Animate the news text from right to left infinitely */
+.news-text {
+  display: inline-block;
+  padding-right: 100%; /* space for smooth loop */
+  animation: marquee 15s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Main layout */
 main {
   flex: 1;
   display: flex;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 20px auto;
-  gap: 40px;
-  padding: 0 20px;
+  gap: 30px;
+  padding: 0 30px;
   overflow: hidden;
 }
 
-/* Left panel with big clicker */
-.left-panel {
-  flex: 1 1 600px;
+/* Clicker section */
+.clicker-section {
+  flex: 2 1 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Clicker area */
+/* Clicker wrapper */
 .clicker-wrapper {
   position: relative;
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
   border-radius: 20px;
-  box-shadow: 0 0 40px #fca311cc;
+  box-shadow: 0 0 50px #fca311cc;
   cursor: pointer;
   overflow: visible;
   background: #1c2541cc;
   transition: box-shadow 0.3s ease;
   margin-bottom: 20px;
+  outline-offset: 3px;
+  outline: none;
 }
 
-.clicker-wrapper:hover {
-  box-shadow: 0 0 60px #fca311ee;
+.clicker-wrapper:hover,
+.clicker-wrapper:focus {
+  box-shadow: 0 0 70px #fca311ee;
 }
 
 #clicker {
@@ -76,7 +138,7 @@ main {
 }
 
 .clicker-wrapper:active #clicker {
-  transform: scale(0.93);
+  transform: scale(0.92);
 }
 
 /* Falling balls container */
@@ -109,31 +171,25 @@ main {
   }
   100% {
     opacity: 0;
-    transform: translate(var(--x-move, 0px), 100px);
+    transform: translate(var(--x-move, 0px), 120px);
   }
 }
 
-/* Score display */
-.score-display {
+/* Score info below clicker */
+.score-info {
+  width: 100%;
+  max-width: 380px;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
-.score-display p:first-child {
-  font-size: 1.4rem;
+.score-info p {
+  font-size: 1.2rem;
   font-weight: 600;
   color: #fca311;
-  letter-spacing: 0.12em;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   text-transform: uppercase;
-}
-
-.score-value {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #ffcb05;
-  text-shadow: 1px 1px 10px #ffb703;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
 /* Progress bar */
@@ -143,7 +199,8 @@ main {
   background: #14274e;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: inset 0 0 6px #fca31199;
+  box-shadow: inset 0 0 8px #fca31199;
+  margin-bottom: 10px;
 }
 
 .progress-fill {
@@ -151,52 +208,89 @@ main {
   width: 0%;
   background: linear-gradient(90deg, #fca311, #ffb703);
   border-radius: 12px 0 0 12px;
-  box-shadow: 0 0 10px #fca311cc;
+  box-shadow: 0 0 12px #fca311cc;
   transition: width 0.3s ease;
 }
 
-/* Right panel (shop) */
-.right-panel {
-  flex: 0 0 320px;
+/* Sidebar with tabs */
+.sidebar {
+  flex: 1 1 400px;
   background: #14274ecc;
   border-radius: 20px;
-  padding: 25px 20px;
-  box-shadow: 0 0 40px #fca311bb;
-  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 0 45px #fca311bb;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-height: 600px;
   user-select: none;
 }
 
-.right-panel h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fca311;
-  letter-spacing: 0.12em;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 8px #ffb703;
+/* Tabs buttons */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
 }
 
-/* Shop button style */
+.tab-btn {
+  flex: 1;
+  background: #1c2541cc;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fca311aa;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  user-select: none;
+}
+
+.tab-btn:hover {
+  background-color: #fca31144;
+  color: #fca311dd;
+}
+
+.tab-btn.active {
+  background-color: #fca311;
+  color: #14274e;
+  box-shadow: 0 0 12px #fca311dd;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Tab content containers */
+.tab-content {
+  flex: 1;
+  background: #1c2541cc;
+  border-radius: 14px;
+  padding: 15px 20px;
+  overflow-y: auto;
+  color: #f0f0f0;
+  font-size: 1rem;
+  box-shadow: inset 0 0 10px #fca311aa;
+  user-select: none;
+}
+
+/* Shop button */
 .shop-btn {
   background: #fca311;
   border: none;
   border-radius: 14px;
-  padding: 18px 25px;
+  padding: 16px 25px;
   font-size: 1.3rem;
   font-weight: 700;
   color: #14274e;
   cursor: pointer;
-  box-shadow: 0 5px 15px #fca311cc;
+  box-shadow: 0 6px 20px #fca311cc;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
+  margin-bottom: 12px;
 }
 
 .shop-btn:hover {
   background-color: #ffb703;
-  box-shadow: 0 8px 20px #ffb703ee;
+  box-shadow: 0 9px 30px #ffb703ee;
 }
 
 /* Footer */
@@ -218,16 +312,12 @@ footer {
     gap: 30px;
   }
 
-  .left-panel,
-  .right-panel {
+  .clicker-section,
+  .sidebar {
     width: 90%;
     max-width: none;
     max-height: none;
     overflow: visible;
-  }
-
-  .right-panel {
-    padding: 20px;
   }
 
   .clicker-wrapper {
@@ -235,11 +325,16 @@ footer {
     height: 300px;
   }
 
-  .score-value {
-    font-size: 3.5rem;
+  .score-info p {
+    font-size: 1rem;
   }
 
-  .right-panel h2 {
-    font-size: 2rem;
+  .sidebar {
+    padding: 15px;
+  }
+
+  .tab-btn {
+    font-size: 1rem;
+    padding: 10px 5px;
   }
 }
