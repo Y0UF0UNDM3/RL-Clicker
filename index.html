@@ -8,12 +8,27 @@
 </head>
 <body>
   <header>
-    <img src="assets/Rocket_League_logo.svg.png" alt="Rocket League Logo" class="logo" />
+    <div class="header-left">
+      <img src="assets/Rocket_League_logo.svg.png" alt="Rocket League Logo" class="logo" />
+      <h1>Rocket League Clicker</h1>
+    </div>
+    <div class="header-right">
+      <div class="goals-counter">
+        Goals: <span id="goals">0</span>
+      </div>
+    </div>
   </header>
 
+  <!-- News ticker below header -->
+  <div class="news-ticker">
+    <div class="news-text" id="newsText">
+      Welcome to Rocket League Clicker! Score goals to unlock new features!
+    </div>
+  </div>
+
   <main>
-    <section class="left-panel">
-      <div class="clicker-wrapper">
+    <section class="clicker-section">
+      <div class="clicker-wrapper" id="clickerWrapper" tabindex="0" role="button" aria-label="Clicker">
         <img
           src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
           id="clicker"
@@ -22,23 +37,55 @@
         />
         <div class="falling-balls-container"></div>
       </div>
-
-      <div class="score-display">
-        <p>Goals Scored:</p>
-        <p id="goals" class="score-value">0</p>
-      </div>
-
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+      <div class="score-info">
+        <p>Goals per click: <span id="goalsPerClick">1</span></p>
+        <div class="progress-bar" aria-label="Progress towards next level">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
       </div>
     </section>
 
-    <section class="right-panel">
-      <h2>Shop</h2>
-      <button id="boostBtn" class="shop-btn">
-        Buy Boost (+1 goal/click) – Cost: <span id="boostCost">10</span>
-      </button>
-      <!-- Add more shop items here -->
+    <section class="sidebar" role="complementary" aria-label="Game tabs and shop">
+      <nav class="tabs" role="tablist" aria-label="Game sections tabs">
+        <button class="tab-btn active" data-tab="shop" role="tab" aria-selected="true" aria-controls="shop" id="tab-shop">Shop</button>
+        <button class="tab-btn" data-tab="buildings" role="tab" aria-selected="false" aria-controls="buildings" id="tab-buildings">Buildings</button>
+        <button class="tab-btn" data-tab="upgrades" role="tab" aria-selected="false" aria-controls="upgrades" id="tab-upgrades">Upgrades</button>
+        <button class="tab-btn" data-tab="achievements" role="tab" aria-selected="false" aria-controls="achievements" id="tab-achievements">Achievements</button>
+        <button class="tab-btn" data-tab="news" role="tab" aria-selected="false" aria-controls="news" id="tab-news">News</button>
+        <button class="tab-btn" data-tab="settings" role="tab" aria-selected="false" aria-controls="settings" id="tab-settings">Settings</button>
+      </nav>
+
+      <div class="tab-content" id="shop" role="tabpanel" aria-labelledby="tab-shop" tabindex="0" style="display: block;">
+        <h2>Shop</h2>
+        <button id="boostBtn" class="shop-btn" aria-label="Buy Boost: Increase goals per click by 1. Costs current boost cost.">
+          Buy Boost (+1 goal/click) – Cost: <span id="boostCost">10</span>
+        </button>
+      </div>
+
+      <div class="tab-content" id="buildings" role="tabpanel" aria-labelledby="tab-buildings" tabindex="0" style="display: none;">
+        <h2>Buildings</h2>
+        <p>Coming soon...</p>
+      </div>
+
+      <div class="tab-content" id="upgrades" role="tabpanel" aria-labelledby="tab-upgrades" tabindex="0" style="display: none;">
+        <h2>Upgrades</h2>
+        <p>Coming soon...</p>
+      </div>
+
+      <div class="tab-content" id="achievements" role="tabpanel" aria-labelledby="tab-achievements" tabindex="0" style="display: none;">
+        <h2>Achievements</h2>
+        <p>Coming soon...</p>
+      </div>
+
+      <div class="tab-content" id="news" role="tabpanel" aria-labelledby="tab-news" tabindex="0" style="display: none;">
+        <h2>News</h2>
+        <p>This news tab complements the news ticker above.</p>
+      </div>
+
+      <div class="tab-content" id="settings" role="tabpanel" aria-labelledby="tab-settings" tabindex="0" style="display: none;">
+        <h2>Settings</h2>
+        <p>Coming soon...</p>
+      </div>
     </section>
   </main>
 
