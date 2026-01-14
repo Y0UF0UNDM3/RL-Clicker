@@ -1,30 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rocket League Clicker</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🚗⚽ Rocket League Clicker</h1>
+  <header>
+    <h1>🚗⚽ Rocket League Clicker</h1>
+  </header>
 
-  <p>Goals: <span id="goals">0</span></p>
+  <main>
+    <section class="clicker-card">
+      <p class="score-label">Goals Scored</p>
+      <p id="goals" class="score-value">0</p>
 
-  <!-- MAIN CLICKER IMAGE -->
-  <img
-    src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
-    id="clicker"
-    alt="Rocket League Clicker"
-  />
+      <img
+        src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
+        id="clicker"
+        alt="Rocket League Clicker"
+      />
+    </section>
 
-  <div class="shop">
-    <h2>Shop</h2>
-    <button id="boostBtn">
-      Buy Boost (+1 goal/click) – Cost: <span id="boostCost">10</span>
-    </button>
-  </div>
+    <aside class="shop-panel">
+      <h2>Shop</h2>
+      <button id="boostBtn" class="shop-btn">
+        Buy Boost (+1 goal/click) – Cost: <span id="boostCost">10</span>
+      </button>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Made with 💙 for Rocket League fans</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-
