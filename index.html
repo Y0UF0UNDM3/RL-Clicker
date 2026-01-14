@@ -8,19 +8,27 @@
 </head>
 <body>
   <header>
-    <h1>🚗⚽ Rocket League Clicker</h1>
+    <img src="assets/Rocket_League_logo.svg.png" alt="Rocket League Logo" class="logo" />
   </header>
 
   <main>
-    <section class="clicker-card">
+    <section class="clicker-container">
       <p class="score-label">Goals Scored</p>
       <p id="goals" class="score-value">0</p>
 
-      <img
-        src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
-        id="clicker"
-        alt="Rocket League Clicker"
-      />
+      <div class="clicker-wrapper">
+        <img
+          src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
+          id="clicker"
+          alt="Rocket League Clicker"
+          draggable="false"
+        />
+        <div class="click-feedback"></div>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
     </section>
 
     <aside class="shop-panel">
@@ -32,7 +40,7 @@
   </main>
 
   <footer>
-    <p>Made with 💙 for Rocket League fans</p>
+    <p>Made for Rocket League fans</p>
   </footer>
 
   <script src="script.js"></script>
