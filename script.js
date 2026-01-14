@@ -30,25 +30,27 @@ function updateUI() {
   goalsSpan.textContent = goals;
   boostCostSpan.textContent = boostCost;
 
-  const progressPercent = Math.min((goals % goalsToLevelUp) / goalsToLevelUp * 100, 100);
+  const progressPercent = Math.min(
+    ((goals % goalsToLevelUp) / goalsToLevelUp) * 100,
+    100
+  );
   progressFill.style.width = progressPercent + "%";
 }
 
 function animateClickFeedback() {
   const container = document.querySelector(".falling-balls-container");
-  const ballCount = 5; // number of balls to spawn per click
+  const ballCount = 5;
 
   for (let i = 0; i < ballCount; i++) {
     const ball = document.createElement("div");
     ball.classList.add("falling-ball");
 
-    // Calculate random horizontal start within container width minus ball width
     const startX = Math.random() * (container.clientWidth - 24);
-    const xMove = (Math.random() * 60 - 30).toFixed(2); // random horizontal drift -30 to +30 px
+    const xMove = (Math.random() * 60 - 30).toFixed(2);
 
     ball.style.left = `${startX}px`;
     ball.style.top = `0px`;
-    ball.style.setProperty('--x-move', `${xMove}px`);
+    ball.style.setProperty("--x-move", `${xMove}px`);
 
     container.appendChild(ball);
 
