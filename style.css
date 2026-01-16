@@ -125,13 +125,6 @@ body {
   animation: fall 1.2s forwards;
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(150px);
-    opacity: 0;
-  }
-}
-
 /* =========================
    MIDDLE PANEL (BUILDINGS)
 ========================= */
@@ -239,21 +232,27 @@ body {
   margin-bottom: 6px;
 }
 
-/* Falling ball effect */
+/* Falling ball effect with popcorn animation */
 .falling-ball {
   position: absolute;
-  width: 24px;
-  animation: fall 1.2s linear forwards;
+  width: 12px;   /* smaller ball */
+  height: 12px;
+  animation: popFall 1.2s forwards;
   pointer-events: none;
+  transform-origin: center;
 }
 
-@keyframes fall {
-  from {
-    top: 40px;
+@keyframes popFall {
+  0% {
     opacity: 1;
+    transform: scale(0.5) translateY(0);
   }
-  to {
-    top: 260px;
+  10% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-10px);
+  }
+  100% {
     opacity: 0;
+    transform: scale(0.8) translateY(150px);
   }
 }
