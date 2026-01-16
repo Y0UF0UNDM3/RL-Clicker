@@ -20,12 +20,8 @@ body {
 ========================= */
 #topBar {
   background: #182446;
-  border-bottom: 3px solid #fca311;
-  padding: 8px 6px; /* taller for news ticker */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
+  border-bottom: 3px solid #fca311; /* more visible border */
+  padding: 4px 6px;
 }
 
 /* Title */
@@ -50,54 +46,41 @@ body {
 
 /* Controls under title */
 #topControls {
+  margin-top: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
-  width: 100%;
+}
+
+#topControls button {
+  background: #fca311;
+  color: #000;
+  border: 2px solid #fca311;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.15s ease;
+}
+
+#topControls button:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
 /* News ticker */
 #newsTicker {
   background: #000;
   border: 3px solid #fca311;
-  padding: 8px 14px;
+  padding: 12px 14px; /* taller */
   min-width: 420px;
   text-align: center;
   cursor: pointer;
-  font-size: 16px;
-  height: 32px; /* taller */
-  overflow: hidden;
+  font-size: 14px;
   position: relative;
-}
-
-/* Animated fade for news ticker text */
-#newsTicker span {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  will-change: opacity;
-}
-
-/* Buttons */
-button {
-  background: #fca311;
-  color: #000;
-  border: 2px solid #fca311;
-  border-radius: 4px;
-  padding: 6px 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: transform 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-button:hover:not(:disabled) {
-  transform: scale(1.05);
+  overflow: hidden;
+  height: 36px;
+  user-select: none;
 }
 
 /* =========================
@@ -106,7 +89,7 @@ button:hover:not(:disabled) {
 #game {
   display: grid;
   grid-template-columns: 340px 1fr 260px;
-  height: calc(100vh - 110px); /* account for taller top bar */
+  height: calc(100vh - 86px);
 }
 
 /* =========================
@@ -120,6 +103,7 @@ button:hover:not(:disabled) {
 #goalsDisplay {
   font-size: 20px;
   margin-bottom: 6px;
+  user-select: none; /* prevent highlight */
 }
 
 #clickerWrapper {
@@ -127,13 +111,12 @@ button:hover:not(:disabled) {
   cursor: pointer;
   border: 3px solid #fca311;
   border-radius: 8px;
-  overflow: visible; /* allow balls to fall outside sometimes */
+  overflow: hidden;
   transition: transform 0.2s ease;
   background: linear-gradient(270deg, #182446, #fca311, #182446);
   background-size: 600% 600%;
   animation: backgroundShift 10s ease infinite;
   width: 260px;
-  height: 260px; /* fix height for consistent ball fall */
   margin: 0 auto;
 }
 
@@ -148,10 +131,8 @@ button:hover:not(:disabled) {
 }
 
 #clickerWrapper img {
-  width: 100%;
+  width: 260px;
   user-select: none;
-  pointer-events: none;
-  display: block;
 }
 
 #gpc {
@@ -164,40 +145,31 @@ button:hover:not(:disabled) {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  overflow: visible; /* allow balls to spill outside */
 }
 
-/* Falling ball effect with popcorn animation */
+/* Falling ball effect: popcorn style pop from top center with slight horizontal move */
 .falling-ball {
   position: absolute;
   width: 12px;
   height: 12px;
   pointer-events: none;
-  transform-origin: center;
-  animation: popFall 1.2s forwards;
   background: url("assets/rocket-league-ball") center / contain no-repeat;
+  animation: popFall 1.2s forwards;
+  transform-origin: top center;
 }
 
-/* Popcorn fall animation with slight horizontal wiggle */
 @keyframes popFall {
   0% {
     opacity: 1;
-    transform: scale(0.5) translate(0, 0);
+    transform: scale(0.5) translate(0, -20px);
   }
-  15% {
+  20% {
     opacity: 1;
-    transform: scale(1.3) translate(5px, -10px);
-  }
-  35% {
-    transform: scale(1) translate(-3px, 30px);
-  }
-  60% {
-    transform: scale(0.8) translate(8px, 80px);
-    opacity: 1;
+    transform: scale(1.2) translate(var(--x-move, 0), -40px);
   }
   100% {
     opacity: 0;
-    transform: scale(0.6) translate(10px, 150px);
+    transform: scale(0.7) translate(var(--x-move, 0), 150px);
   }
 }
 
@@ -215,55 +187,69 @@ button:hover:not(:disabled) {
   text-align: center;
   padding: 6px;
   font-weight: bold;
-  border-bottom: 3px solid #fca311;
+  border-bottom: 2px solid #fca311;
   background: #101935;
 }
 
-/* Taller buildings list: show about 5 buildings */
 #buildingsList {
   flex: 1;
   overflow-y: auto;
   padding: 6px;
-  max-height: 520px; /* tall enough for 5 buildings */
+  max-height: 480px; /* roughly shows 5 tall buildings */
 }
 
-/* Building item */
+/* Buildings */
 .building {
   background: #1c2541;
   border: 2px solid #fca311;
-  padding: 18px 12px; /* taller */
-  margin-bottom: 8px;
-  font-size: 16px;
+  padding: 20px 10px; /* taller */
+  margin-bottom: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 6px;
   color: #fca311;
   position: relative;
   user-select: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
+  height: 90px; /* fixed tall height */
 }
 
-/* Undiscovered buildings show ??? */
+/* Undiscovered buildings show ??? text */
 .building.undiscovered {
   color: #999999;
+  cursor: default;
+  font-weight: bold;
+  justify-content: center;
 }
 
-/* Hide question mark and show ??? text instead */
-.building.undiscovered::after {
-  content: "";
+.building.undiscovered::before {
+  content: "???";
+  position: absolute;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fca311;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
 }
 
-/* Discovered buildings style */
+/* Discovered buildings styling */
 .building.discovered {
-  color: #fff;
+  color: #ffffff;
   border-color: #fca311;
+  position: relative;
   padding-right: 40px; /* space for future design */
+  font-weight: normal;
+  justify-content: flex-start;
+  height: 90px;
 }
 
-/* Hover effect only on discovered */
 .building.discovered:hover {
   background-color: #2a3458;
+  cursor: pointer;
 }
 
 /* =========================
@@ -273,47 +259,44 @@ button:hover:not(:disabled) {
   padding: 8px;
 }
 
-/* Shop scroll area: about 5 items visible, scrollable */
-.shop-scroll {
-  max-height: 520px;
-  overflow-y: auto;
-  background: #0b132b;
-  border: 2px solid #fca311;
-  padding: 6px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
-  gap: 8px;
+.shop-panel {
+  margin-bottom: 12px;
 }
 
-/* Shop buttons: small squares with icons */
+.shop-scroll {
+  max-height: 480px; /* shows ~5 small buttons */
+  overflow-y: auto;
+  background: #0b132b;
+  border: 2px solid #1c2541;
+  padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+/* Shop buttons are small squares */
 .shop-scroll button {
   width: 56px;
   height: 56px;
-  padding: 0;
   background: #fca311;
-  color: #000;
-  border-radius: 6px;
   border: 2px solid #fca311;
-  font-size: 0;
-  position: relative;
+  border-radius: 6px;
   cursor: pointer;
+  position: relative;
   transition: transform 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
 }
 
-/* Placeholder for icons inside buttons - user will add images here */
-.shop-scroll button img {
-  width: 32px;
-  height: 32px;
-  pointer-events: none;
+/* Hover scale effect */
+.shop-scroll button:hover:not(:disabled) {
+  transform: scale(1.1);
 }
 
-/* On hover, show description tooltip */
+/* Tooltip with description on hover */
 .shop-scroll button:hover::after {
   content: attr(data-desc);
-  position: absolute;
+  position: fixed; /* avoid clipping */
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
@@ -325,30 +308,16 @@ button:hover:not(:disabled) {
   border-radius: 4px;
   pointer-events: none;
   opacity: 1;
-  z-index: 10;
+  z-index: 9999;
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  transition: opacity 0.15s ease-in-out;
+  user-select: none;
 }
 
-/* Buttons scale on hover */
-.shop-scroll button:hover:not(:disabled) {
-  transform: scale(1.1);
-}
-
-/* Boost button uses shop-scroll style for consistency */
-#boostBtn {
-  width: 56px;
-  height: 56px;
-  padding: 0;
-  background: #fca311;
-  color: #000;
-  border-radius: 6px;
-  border: 2px solid #fca311;
-  font-size: 0;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Disabled buttons appear less vibrant */
+.shop-scroll button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 /* =========================
