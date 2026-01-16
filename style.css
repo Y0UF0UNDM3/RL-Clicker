@@ -221,3 +221,39 @@ body {
   border: none;
   cursor: pointer;
 }
+
+.shop-panel {
+  margin-bottom: 10px;
+}
+
+.shop-scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #0b132b;
+  border: 1px solid #1c2541;
+  padding: 6px;
+}
+
+.shop-scroll button {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* Falling ball effect */
+.falling-ball {
+  position: absolute;
+  width: 24px;
+  animation: fall 1.2s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  from {
+    top: 40px;
+    opacity: 1;
+  }
+  to {
+    top: 260px;
+    opacity: 0;
+  }
+}
