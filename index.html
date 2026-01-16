@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,96 +7,69 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <img src="assets/Rocket_League_logo.svg.png" alt="Rocket League Logo" class="logo" />
-      <h1>Rocket League Clicker</h1>
-    </div>
-    <div class="header-center">
-      <div class="news-ticker-container">
-        <div class="news-ticker" aria-live="polite">
-          <div class="news-text" id="newsText">
-            Welcome to Rocket League Clicker! Score goals to unlock new features!
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="header-right">
-      <button class="header-btn" id="achievementsBtn" aria-label="Open Achievements">Achievements</button>
-      <button class="header-btn" id="settingsBtn" aria-label="Open Settings">Settings</button>
-      <div class="goals-counter" aria-live="polite">
-        Goals: <span id="goals">0</span>
-      </div>
-    </div>
-  </header>
 
-  <main>
-    <section class="clicker-section">
-      <div class="clicker-wrapper" id="clickerWrapper" tabindex="0" role="button" aria-label="Clicker">
-        <img
-          src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png"
-          id="clicker"
-          alt="Rocket League Clicker"
-          draggable="false"
-        />
-        <div class="falling-balls-container"></div>
-      </div>
-      <div class="score-info">
-        <p>Goals per click: <span id="goalsPerClick">1</span></p>
-        <div class="progress-bar" aria-label="Progress towards next level">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-      </div>
-    </section>
+<header>
+  <h1 class="game-title">
+    <img src="assets/Rocket_League_logo.svg.png" class="logo" />
+    Rocket League Clicker
+  </h1>
 
-    <section class="buildings-section" aria-label="Buildings panel">
-      <h2>Buildings</h2>
-      <div class="buildings-list" id="buildingsList" tabindex="0">
-        <!-- Buildings inserted by JS -->
-      </div>
-    </section>
-
-    <section class="sidebar" role="complementary" aria-label="Shop and other tabs">
-      <nav class="tabs" role="tablist" aria-label="Game sections tabs">
-        <button class="tab-btn active" data-tab="shop" role="tab" aria-selected="true" aria-controls="shop" id="tab-shop">Shop</button>
-        <button class="tab-btn" data-tab="upgrades" role="tab" aria-selected="false" aria-controls="upgrades" id="tab-upgrades">Upgrades</button>
-      </nav>
-
-      <div class="tab-content" id="shop" role="tabpanel" aria-labelledby="tab-shop" tabindex="0" style="display: block;">
-        <h2>Shop</h2>
-        <button id="boostBtn" class="shop-btn" aria-label="Buy Boost: Increase goals per click by 1. Costs current boost cost.">
-          Buy Boost (+1 goal/click) – Cost: <span id="boostCost">10</span>
-        </button>
-      </div>
-
-      <div class="tab-content" id="upgrades" role="tabpanel" aria-labelledby="tab-upgrades" tabindex="0" style="display: none;">
-        <h2>Upgrades</h2>
-        <p>Coming soon...</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Modal panels for Achievements and Settings -->
-  <div class="modal" id="achievementsModal" role="dialog" aria-modal="true" aria-labelledby="achievementsTitle" hidden>
-    <div class="modal-content">
-      <h2 id="achievementsTitle">Achievements</h2>
-      <p>Coming soon...</p>
-      <button class="close-modal" aria-label="Close Achievements" id="closeAchievementsBtn">Close</button>
-    </div>
+  <div class="top-controls">
+    <button id="achievementsBtn">Achievements</button>
+    <div class="news-ticker" id="newsTicker">Welcome to Rocket League Clicker!</div>
+    <button id="settingsBtn">Settings</button>
   </div>
+</header>
 
-  <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
-    <div class="modal-content">
-      <h2 id="settingsTitle">Settings</h2>
-      <p>Coming soon...</p>
-      <button class="close-modal" aria-label="Close Settings" id="closeSettingsBtn">Close</button>
+<main>
+  <!-- CLICKER -->
+  <section class="clicker-section">
+    <div class="goals-display">
+      Goals: <span id="goals">0</span>
     </div>
+
+    <div class="clicker-wrapper" id="clickerWrapper">
+      <img src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png" />
+      <div class="falling-balls-container"></div>
+    </div>
+
+    <div class="click-info">
+      Goals per click: <span id="goalsPerClick">1</span>
+    </div>
+  </section>
+
+  <!-- BUILDINGS -->
+  <section class="buildings-section">
+    <h2>Buildings</h2>
+    <div class="buildings-list" id="buildingsList"></div>
+  </section>
+
+  <!-- SHOP -->
+  <aside class="shop-section">
+    <h2>Shop</h2>
+    <button id="boostBtn">
+      Buy Boost (+1 goal/click) — Cost: <span id="boostCost">10</span>
+    </button>
+  </aside>
+</main>
+
+<!-- MODALS -->
+<div class="modal" id="settingsModal" hidden>
+  <div class="modal-content">
+    <h2>Settings</h2>
+    <p>Coming soon...</p>
+    <button id="closeSettingsBtn">Close</button>
   </div>
+</div>
 
-  <footer>
-    <p>Made for Rocket League fans</p>
-  </footer>
+<div class="modal" id="achievementsModal" hidden>
+  <div class="modal-content">
+    <h2>Achievements</h2>
+    <p>Coming soon...</p>
+    <button id="closeAchievementsBtn">Close</button>
+  </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
