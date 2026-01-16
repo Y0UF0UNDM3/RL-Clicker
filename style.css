@@ -121,7 +121,7 @@ body {
   position: absolute;
   width: 18px;
   height: 18px;
-  background: url("assets/rocket-league-ball.png") center / contain no-repeat;
+  background: url("assets/rocket-league-ball") center / contain no-repeat;
   animation: fall 1.2s forwards;
 }
 
