@@ -2,70 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rocket League Clicker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header>
-  <h1 class="game-title">
-    <img src="assets/Rocket_League_logo.svg.png" class="logo" />
+<!-- TOP BAR -->
+<div id="topBar">
+  <div id="gameTitle">
+    <img src="assets/Rocket_League_logo.svg.png" />
     Rocket League Clicker
-  </h1>
+  </div>
 
-  <div class="top-controls">
+  <div id="topControls">
     <button id="achievementsBtn">Achievements</button>
-    <div class="news-ticker" id="newsTicker">Welcome to Rocket League Clicker!</div>
+    <div id="newsTicker">Welcome to Rocket League Clicker!</div>
     <button id="settingsBtn">Settings</button>
   </div>
-</header>
+</div>
 
-<main>
-  <!-- CLICKER -->
-  <section class="clicker-section">
-    <div class="goals-display">
-      Goals: <span id="goals">0</span>
-    </div>
+<!-- GAME -->
+<div id="game">
 
-    <div class="clicker-wrapper" id="clickerWrapper">
+  <!-- LEFT: CLICKER -->
+  <div id="leftPanel">
+    <div id="goalsDisplay">Goals: <span id="goals">0</span></div>
+
+    <div id="clickerWrapper">
       <img src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png" />
-      <div class="falling-balls-container"></div>
+      <div class="falling-balls"></div>
     </div>
 
-    <div class="click-info">
-      Goals per click: <span id="goalsPerClick">1</span>
-    </div>
-  </section>
+    <div id="gpc">Goals per click: <span id="goalsPerClick">1</span></div>
+  </div>
 
-  <!-- BUILDINGS -->
-  <section class="buildings-section">
-    <h2>Buildings</h2>
-    <div class="buildings-list" id="buildingsList"></div>
-  </section>
+  <!-- MIDDLE: BUILDINGS -->
+  <div id="middlePanel">
+    <div class="panelTitle">Buildings</div>
+    <div id="buildingsList"></div>
+  </div>
 
-  <!-- SHOP -->
-  <aside class="shop-section">
-    <h2>Shop</h2>
+  <!-- RIGHT: SHOP -->
+  <div id="rightPanel">
+    <div class="panelTitle">Shop</div>
     <button id="boostBtn">
-      Buy Boost (+1 goal/click) — Cost: <span id="boostCost">10</span>
+      Buy Boost<br />
+      +1 goal / click<br />
+      Cost: <span id="boostCost">10</span>
     </button>
-  </aside>
-</main>
+  </div>
+
+</div>
 
 <!-- MODALS -->
 <div class="modal" id="settingsModal" hidden>
-  <div class="modal-content">
+  <div class="modalBox">
     <h2>Settings</h2>
-    <p>Coming soon...</p>
+    <p>Coming soon…</p>
     <button id="closeSettingsBtn">Close</button>
   </div>
 </div>
 
 <div class="modal" id="achievementsModal" hidden>
-  <div class="modal-content">
+  <div class="modalBox">
     <h2>Achievements</h2>
-    <p>Coming soon...</p>
+    <p>Coming soon…</p>
     <button id="closeAchievementsBtn">Close</button>
   </div>
 </div>
