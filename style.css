@@ -1,3 +1,11 @@
+#gameTitle img {
+  max-height: 36px !important;
+  max-width: 36px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
