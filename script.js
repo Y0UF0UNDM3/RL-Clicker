@@ -1,5 +1,5 @@
 let goals = 0;
-let goalsPerClick = 1;
+let gpc = 1;
 let boostCost = 10;
 
 const goalsEl = document.getElementById("goals");
@@ -10,40 +10,41 @@ const buildingsList = document.getElementById("buildingsList");
 const newsTicker = document.getElementById("newsTicker");
 
 /* NEWS */
-const newsMessages = [
+const news = [
   "Welcome to Rocket League Clicker!",
-  "Score goals to unlock new ranks!",
-  "Buildings automate goal scoring!",
-  "Can you reach RLCS level?",
-  "More upgrades coming soon!"
+  "Score goals to unlock new ranks.",
+  "Buildings automate goal scoring.",
+  "Can you reach RLCS?",
+  "More upgrades coming soon."
 ];
 
 let newsIndex = 0;
-newsTicker.textContent = newsMessages[0];
+newsTicker.textContent = news[0];
 
 setInterval(nextNews, 4000);
-newsTicker.addEventListener("click", nextNews);
+newsTicker.onclick = nextNews;
 
 function nextNews() {
-  newsIndex = (newsIndex + 1) % newsMessages.length;
-  newsTicker.textContent = newsMessages[newsIndex];
+  newsIndex = (newsIndex + 1) % news.length;
+  newsTicker.textContent = news[newsIndex];
 }
 
 /* BUILDINGS */
-const buildingData = [
-  { name: "Bronze Player", cost: 15 },
-  { name: "Silver Player", cost: 100 },
-  { name: "Gold Player", cost: 1000 },
-  { name: "Platinum Player", cost: 3500 },
-  { name: "Diamond Player", cost: 12000 },
-  { name: "Champion", cost: 50000 },
-  { name: "Grand Champion", cost: 300000 },
-  { name: "SSL", cost: 900000 },
-  { name: "RLCS", cost: 2500000 }
+const data = [
+  ["Bronze Player", 15],
+  ["Silver Player", 100],
+  ["Gold Player", 1000],
+  ["Platinum Player", 3500],
+  ["Diamond Player", 12000],
+  ["Champion", 50000],
+  ["Grand Champion", 300000],
+  ["SSL", 900000],
+  ["RLCS", 2500000]
 ];
 
-const buildings = buildingData.map(b => ({
-  ...b,
+const buildings = data.map(b => ({
+  name: b[0],
+  cost: b[1],
   owned: 0,
   discovered: false
 }));
@@ -59,8 +60,9 @@ function renderBuildings() {
     div.className = "building";
     div.textContent = `${b.name} — Cost: ${b.cost} (Owned: ${b.owned})`;
 
-    if (goals < b.cost) div.classList.add("locked");
-    else {
+    if (goals < b.cost) {
+      div.classList.add("locked");
+    } else {
       div.onclick = () => {
         goals -= b.cost;
         b.owned++;
@@ -75,27 +77,27 @@ function renderBuildings() {
 
 /* CLICK */
 clicker.onclick = () => {
-  goals += goalsPerClick;
+  goals += gpc;
   spawnBalls();
   update();
 };
 
 function spawnBalls() {
-  const container = clicker.querySelector(".falling-balls-container");
+  const c = clicker.querySelector(".falling-balls");
   for (let i = 0; i < 4; i++) {
-    const ball = document.createElement("div");
-    ball.className = "falling-ball";
-    ball.style.left = Math.random() * 200 + "px";
-    container.appendChild(ball);
-    ball.onanimationend = () => ball.remove();
+    const b = document.createElement("div");
+    b.className = "ball";
+    b.style.left = Math.random() * 220 + "px";
+    c.appendChild(b);
+    b.onanimationend = () => b.remove();
   }
 }
 
 /* SHOP */
-document.getElementById("boostBtn").onclick = () => {
+boostBtn.onclick = () => {
   if (goals >= boostCost) {
     goals -= boostCost;
-    goalsPerClick++;
+    gpc++;
     boostCost = Math.floor(boostCost * 1.5);
     update();
   }
@@ -110,7 +112,7 @@ closeAchievementsBtn.onclick = () => achievementsModal.hidden = true;
 /* UPDATE */
 function update() {
   goalsEl.textContent = goals;
-  gpcEl.textContent = goalsPerClick;
+  gpcEl.textContent = gpc;
   boostCostEl.textContent = boostCost;
   renderBuildings();
 }
