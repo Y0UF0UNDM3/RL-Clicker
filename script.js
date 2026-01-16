@@ -64,14 +64,15 @@ soundBtn.addEventListener("click", () => {
 });
 
 /* =========================
-   CLICK EFFECT
+   CLICK EFFECT WITH POPCORN ANIMATION
 ========================= */
 function spawnBallEffect() {
   const ball = document.createElement("img");
   ball.src = "assets/rocket-league-ball";
   ball.className = "falling-ball";
 
-  ball.style.left = Math.random() * 220 + "px";
+  // Adjust left position for smaller ball width (12px)
+  ball.style.left = Math.random() * 240 + "px";
   clicker.appendChild(ball);
 
   setTimeout(() => ball.remove(), 1200);
