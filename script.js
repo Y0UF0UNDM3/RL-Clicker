@@ -68,7 +68,7 @@ soundBtn.addEventListener("click", () => {
 ========================= */
 function spawnBallEffect() {
   const ball = document.createElement("img");
-  ball.src = "assets/rocket-league-ball.png";
+  ball.src = "assets/rocket-league-ball";
   ball.className = "falling-ball";
 
   ball.style.left = Math.random() * 220 + "px";
