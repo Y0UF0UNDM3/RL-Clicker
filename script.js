@@ -3,10 +3,10 @@
 ========================= */
 let goals = 0;
 let goalsPerClick = 1;
-
 let totalClicks = 0;
-let visualClickUnlocked = false;
-let soundClickUnlocked = false;
+
+let visualUnlocked = false;
+let soundUnlocked = false;
 
 /* =========================
    ELEMENTS
@@ -15,8 +15,11 @@ const goalsEl = document.getElementById("goals");
 const gpcEl = document.getElementById("goalsPerClick");
 const clicker = document.getElementById("clickerWrapper");
 
+const visualBtn = document.getElementById("unlockVisualBtn");
+const soundBtn = document.getElementById("unlockSoundBtn");
+
 /* =========================
-   CLICK SOUND
+   SOUND
 ========================= */
 const clickSound = new Audio("assets/click.mp3");
 clickSound.volume = 0.5;
@@ -29,78 +32,58 @@ clicker.addEventListener("click", () => {
   totalClicks++;
 
   goalsEl.textContent = goals;
+  checkExperienceUnlocks();
 
-  checkClickUnlocks();
-
-  if (visualClickUnlocked) {
-    spawnClickEffect();
-  }
-
-  if (soundClickUnlocked) {
-    clickSound.currentTime = 0;
-    clickSound.play();
-  }
+  if (visualUnlocked) spawnBallEffect();
+  if (soundUnlocked) playClickSound();
 });
 
 /* =========================
-   UNLOCK SYSTEM
+   EXPERIENCE UNLOCKS
 ========================= */
-function checkClickUnlocks() {
-  if (totalClicks === 20) {
-    visualClickUnlocked = true;
-    setNews("Click effect unlocked!");
+function checkExperienceUnlocks() {
+  if (totalClicks >= 20 && !visualUnlocked) {
+    visualBtn.disabled = false;
   }
 
-  if (totalClicks === 50) {
-    soundClickUnlocked = true;
-    setNews("Click sound unlocked!");
+  if (totalClicks >= 50 && !soundUnlocked) {
+    soundBtn.disabled = false;
   }
 }
 
-/* =========================
-   CLICK EFFECT (BALL FALL)
-========================= */
-function spawnClickEffect() {
-  const container = document.createElement("div");
-  container.className = "falling-balls";
+visualBtn.addEventListener("click", () => {
+  visualUnlocked = true;
+  visualBtn.textContent = "Click Effect Unlocked";
+  visualBtn.disabled = true;
+});
 
-  const ball = document.createElement("div");
-  ball.className = "ball";
+soundBtn.addEventListener("click", () => {
+  soundUnlocked = true;
+  soundBtn.textContent = "Click Sound Unlocked";
+  soundBtn.disabled = true;
+});
+
+/* =========================
+   CLICK EFFECT
+========================= */
+function spawnBallEffect() {
+  const ball = document.createElement("img");
+  ball.src = "assets/rocket-league-ball.png";
+  ball.className = "falling-ball";
 
   ball.style.left = Math.random() * 220 + "px";
-  ball.style.top = "40px";
+  clicker.appendChild(ball);
 
-  container.appendChild(ball);
-  clicker.appendChild(container);
-
-  setTimeout(() => {
-    container.remove();
-  }, 1200);
+  setTimeout(() => ball.remove(), 1200);
 }
 
 /* =========================
-   NEWS TICKER (STATIC ROTATION)
+   SOUND
 ========================= */
-const newsMessages = [
-  "Welcome to Rocket League Clicker!",
-  "Buildings automate goal scoring!",
-  "Click to score goals!",
-];
-
-let newsIndex = 0;
-const newsEl = document.getElementById("newsTicker");
-
-function rotateNews() {
-  newsIndex = (newsIndex + 1) % newsMessages.length;
-  newsEl.textContent = newsMessages[newsIndex];
+function playClickSound() {
+  clickSound.currentTime = 0;
+  clickSound.play();
 }
-
-function setNews(text) {
-  newsEl.textContent = text;
-}
-
-setInterval(rotateNews, 4000);
-newsEl.addEventListener("click", rotateNews);
 
 /* =========================
    INITIAL UI
