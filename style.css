@@ -1,108 +1,75 @@
-/* =========================
-   GLOBAL RESET
-========================= */
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
   background: #0b132b;
-  color: #eaeaea;
+  color: #fff;
   height: 100vh;
   overflow: hidden;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #1c2541;
+  text-align: center;
+  padding: 10px;
   border-bottom: 2px solid #fca311;
-  padding: 6px 12px;
-  height: 64px;
 }
 
-.header-left {
+.game-title {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 10px;
+  font-size: 24px;
 }
 
 .logo {
-  height: 36px;
+  height: 40px;
 }
 
-.header-center {
-  flex: 1;
+.top-controls {
+  margin-top: 8px;
   display: flex;
   justify-content: center;
+  gap: 10px;
+  align-items: center;
 }
 
-.news-ticker-container {
-  width: 380px;
-  overflow: hidden;
-  border: 1px solid #fca311;
-  background: #000;
+.top-controls button {
+  padding: 6px 10px;
+  background: #fca311;
+  border: none;
+  cursor: pointer;
 }
 
 .news-ticker {
-  white-space: nowrap;
-}
-
-.news-text {
-  display: inline-block;
-  padding-left: 100%;
-  animation: marquee 12s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.header-btn {
-  background: #fca311;
-  color: #000;
-  border: none;
-  padding: 4px 8px;
+  background: #000;
+  border: 2px solid #fca311;
+  padding: 8px 14px;
+  min-width: 420px;
+  text-align: center;
   cursor: pointer;
-  font-weight: bold;
 }
 
-.goals-counter {
-  margin-left: 8px;
-  font-weight: bold;
-}
-
-/* =========================
-   MAIN LAYOUT
-========================= */
+/* MAIN LAYOUT */
 main {
   display: grid;
   grid-template-columns: 320px 1fr 280px;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 110px);
 }
 
-/* =========================
-   CLICKER SECTION (LEFT)
-========================= */
+/* CLICKER */
 .clicker-section {
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+}
+
+.goals-display {
+  font-size: 22px;
+  margin-bottom: 8px;
 }
 
 .clicker-wrapper {
@@ -112,27 +79,8 @@ main {
 
 .clicker-wrapper img {
   width: 240px;
-  user-select: none;
 }
 
-.score-info {
-  margin-top: 10px;
-  width: 100%;
-}
-
-.progress-bar {
-  height: 10px;
-  background: #333;
-  margin-top: 6px;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: #fca311;
-}
-
-/* Falling balls */
 .falling-balls-container {
   position: absolute;
   inset: 0;
@@ -141,110 +89,62 @@ main {
 
 .falling-ball {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background: url("assets/rocket-league-ball.png") center/contain no-repeat;
   animation: fall 1.2s ease-out forwards;
 }
 
 @keyframes fall {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
   to {
-    transform: translateY(140px) scale(0.6);
+    transform: translateY(140px);
     opacity: 0;
   }
 }
 
-/* =========================
-   BUILDINGS (MIDDLE)
-========================= */
-.buildings-section {
-  padding: 10px;
-  overflow: hidden;
-  border-left: 2px solid #1c2541;
-  border-right: 2px solid #1c2541;
+.click-info {
+  margin-top: 6px;
 }
 
-.buildings-section h2 {
-  text-align: center;
-  margin-bottom: 6px;
+/* BUILDINGS */
+.buildings-section {
+  padding: 10px;
+  border-left: 2px solid #1c2541;
+  border-right: 2px solid #1c2541;
 }
 
 .buildings-list {
   height: 100%;
   overflow-y: auto;
-  padding-right: 4px;
 }
 
-.building-item {
+.building {
   background: #1c2541;
+  padding: 10px;
+  margin-bottom: 8px;
   border: 1px solid #444;
-  padding: 8px;
-  margin-bottom: 6px;
   cursor: pointer;
 }
 
-.building-item.locked {
-  opacity: 0.35;
+.building.locked {
+  opacity: 0.3;
   cursor: default;
 }
 
-.building-name {
-  font-weight: bold;
-}
-
-.building-cost,
-.building-count {
-  font-size: 13px;
-  color: #ccc;
-}
-
-/* =========================
-   SIDEBAR (RIGHT)
-========================= */
-.sidebar {
+/* SHOP */
+.shop-section {
   padding: 10px;
-  overflow-y: auto;
 }
 
-.tabs {
-  display: flex;
-  margin-bottom: 6px;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 6px;
-  background: #1c2541;
-  color: #fff;
-  border: 1px solid #444;
-  cursor: pointer;
-}
-
-.tab-btn.active {
-  background: #fca311;
-  color: #000;
-}
-
-.tab-content h2 {
-  margin-bottom: 8px;
-}
-
-.shop-btn {
+.shop-section button {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   background: #fca311;
   border: none;
   cursor: pointer;
-  font-weight: bold;
 }
 
-/* =========================
-   MODALS (CRITICAL FIX)
-========================= */
+/* MODALS */
 .modal[hidden] {
   display: none !important;
 }
@@ -252,32 +152,14 @@ main {
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0,0,0,0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .modal-content {
   background: #0b132b;
   border: 2px solid #fca311;
   padding: 20px;
-  width: 320px;
-  text-align: center;
-}
-
-.close-modal {
-  margin-top: 12px;
-  padding: 6px 12px;
-  background: #fca311;
-  border: none;
-  cursor: pointer;
-}
-
-/* =========================
-   FOOTER
-========================= */
-footer {
-  display: none;
 }
