@@ -20,7 +20,7 @@ body {
 ========================= */
 #topBar {
   background: #182446;
-  border-bottom: 2px solid #fca311;
+  border-bottom: 3px solid #fca311; /* more visible border */
   padding: 4px 6px;
 }
 
@@ -56,16 +56,22 @@ body {
 #topControls button {
   background: #fca311;
   color: #000;
-  border: none;
+  border: 2px solid #fca311; /* more visible border */
+  border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: transform 0.15s ease;
+}
+
+#topControls button:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
 /* News ticker (NO scrolling text) */
 #newsTicker {
   background: #000;
-  border: 2px solid #fca311;
+  border: 3px solid #fca311; /* more visible border */
   padding: 6px 14px;
   min-width: 420px;
   text-align: center;
@@ -98,6 +104,23 @@ body {
 #clickerWrapper {
   position: relative;
   cursor: pointer;
+  border: 3px solid #fca311; /* visible border */
+  border-radius: 8px;
+  overflow: hidden; /* for animated background */
+  transition: transform 0.2s ease;
+  background: linear-gradient(270deg, #182446, #fca311, #182446);
+  background-size: 600% 600%;
+  animation: backgroundShift 10s ease infinite;
+}
+
+#clickerWrapper:hover {
+  transform: scale(1.05);
+}
+
+@keyframes backgroundShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 #clickerWrapper img {
@@ -110,27 +133,19 @@ body {
   font-size: 14px;
 }
 
-/* Falling balls */
+/* Falling balls container */
 .falling-balls {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.ball {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: url("assets/rocket-league-ball") center / contain no-repeat;
-  animation: fall 1.2s forwards;
-}
-
 /* =========================
    MIDDLE PANEL (BUILDINGS)
 ========================= */
 #middlePanel {
-  border-left: 2px solid #0c1025;
-  border-right: 2px solid #0c1025;
+  border-left: 3px solid #fca311; /* more visible border */
+  border-right: 3px solid #fca311; /* more visible border */
   display: flex;
   flex-direction: column;
 }
@@ -139,7 +154,7 @@ body {
   text-align: center;
   padding: 6px;
   font-weight: bold;
-  border-bottom: 1px solid #333;
+  border-bottom: 2px solid #fca311; /* stronger border */
   background: #101935;
 }
 
@@ -149,19 +164,54 @@ body {
   padding: 6px;
 }
 
-/* Dense, tall building entries */
+/* Buildings */
 .building {
   background: #1c2541;
-  border: 1px solid #444;
+  border: 2px solid #fca311; /* more visible */
   padding: 10px;
   margin-bottom: 6px;
   cursor: pointer;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  color: #fca311;
+  position: relative;
 }
 
-.building.locked {
-  opacity: 0.3;
+/* Question mark for undiscovered */
+.building.undiscovered::after {
+  content: "?";
+  font-size: 24px;
+  font-weight: bold;
+  color: #fca311;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  user-select: none;
+}
+
+/* Discovered buildings styling */
+.building.discovered {
+  color: #ffffff;
+  border-color: #fca311;
+  position: relative;
+  padding-right: 40px; /* space for future design */
+}
+
+/* Undiscovered style */
+.building.undiscovered {
+  opacity: 1;
+  color: #999999;
   cursor: default;
+}
+
+/* Hover for discovered only */
+.building.discovered:hover {
+  background-color: #2a3458;
+  cursor: pointer;
 }
 
 /* =========================
@@ -176,10 +226,16 @@ body {
   padding: 10px;
   background: #fca311;
   color: #000;
-  border: none;
+  border: 2px solid #fca311; /* more visible border */
+  border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
   text-align: center;
+  transition: transform 0.15s ease;
+}
+
+#boostBtn:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
 /* =========================
@@ -201,35 +257,25 @@ body {
 
 .modalBox {
   background: #0b132b;
-  border: 2px solid #fca311;
+  border: 3px solid #fca311;
   padding: 20px;
   width: 300px;
   text-align: center;
+  border-radius: 6px;
 }
 
 .modalBox button {
   margin-top: 10px;
   padding: 6px 12px;
   background: #fca311;
-  border: none;
+  border: 2px solid #fca311;
+  border-radius: 4px;
   cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
-.shop-panel {
-  margin-bottom: 10px;
-}
-
-.shop-scroll {
-  max-height: 200px;
-  overflow-y: auto;
-  background: #0b132b;
-  border: 1px solid #1c2541;
-  padding: 6px;
-}
-
-.shop-scroll button {
-  width: 100%;
-  margin-bottom: 6px;
+.modalBox button:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
 /* Falling ball effect with popcorn animation */
