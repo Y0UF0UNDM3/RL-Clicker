@@ -19,13 +19,57 @@ const visualBtn = document.getElementById("unlockVisualBtn");
 const soundBtn = document.getElementById("unlockSoundBtn");
 
 const buildingsList = document.getElementById("buildingsList");
-const boostBtn = document.getElementById("boostBtn");
+const newsTicker = document.getElementById("newsTicker");
+const gameShop = document.getElementById("gameShop");
 
 /* =========================
    SOUND
 ========================= */
 const clickSound = new Audio("assets/click.mp3");
 clickSound.volume = 0.5;
+
+/* =========================
+   BUILDINGS DATA
+========================= */
+const buildings = [
+  { id: 1, name: "Building 1", cost: 20, discovered: false },
+  { id: 2, name: "Building 2", cost: 40, discovered: false },
+  { id: 3, name: "Building 3", cost: 80, discovered: false },
+  { id: 4, name: "Building 4", cost: 160, discovered: false },
+  { id: 5, name: "Building 5", cost: 320, discovered: false }
+  // Add more buildings here
+];
+
+/* =========================
+   NEWS TICKER
+========================= */
+const newsMessages = [
+  "Welcome to Rocket League Clicker!",
+  "Unlock click effects and sounds!",
+  "Buy boosts to score more goals!",
+  "Discover all buildings and upgrade!",
+  "Click fast and climb the leaderboard!",
+];
+
+let currentNewsIndex = 0;
+const newsSpan = document.createElement("span");
+newsSpan.style.position = "absolute";
+newsSpan.style.width = "100%";
+newsSpan.style.textAlign = "center";
+newsSpan.style.transition = "opacity 1s ease-in-out";
+newsSpan.style.opacity = "1";
+newsTicker.appendChild(newsSpan);
+newsSpan.textContent = newsMessages[currentNewsIndex];
+
+function rotateNews() {
+  newsSpan.style.opacity = "0";
+  setTimeout(() => {
+    currentNewsIndex = (currentNewsIndex + 1) % newsMessages.length;
+    newsSpan.textContent = newsMessages[currentNewsIndex];
+    newsSpan.style.opacity = "1";
+  }, 1000);
+}
+setInterval(rotateNews, 4000);
 
 /* =========================
    CLICK HANDLER
@@ -36,6 +80,7 @@ clicker.addEventListener("click", () => {
 
   goalsEl.textContent = goals;
   checkExperienceUnlocks();
+  checkBuildingDiscoveries();
 
   if (visualUnlocked) spawnBallEffect();
   if (soundUnlocked) playClickSound();
@@ -67,73 +112,23 @@ soundBtn.addEventListener("click", () => {
 });
 
 /* =========================
-   BUILDINGS STATE & UI
-========================= */
-const buildings = [
-  { id: 1, name: "Building 1", cost: 10, discovered: false },
-  { id: 2, name: "Building 2", cost: 20, discovered: false },
-  { id: 3, name: "Building 3", cost: 40, discovered: false },
-  { id: 4, name: "Building 4", cost: 80, discovered: false },
-  { id: 5, name: "Building 5", cost: 160, discovered: false },
-];
-
-/**
- * Render the buildings list
- * - Undiscovered buildings show "???"
- * - Clicking undiscovered buildings does NOT remove the question marks
- * - Buildings get discovered automatically once goals are 75% of their cost
- * - Buildings stay discovered once unlocked
- */
-function renderBuildings() {
-  buildingsList.innerHTML = "";
-
-  buildings.forEach((building) => {
-    // Auto-discover if close to cost
-    if (!building.discovered && goals >= building.cost * 0.75) {
-      building.discovered = true;
-    }
-
-    const div = document.createElement("div");
-    div.classList.add("building");
-
-    if (building.discovered) {
-      div.classList.add("discovered");
-      div.textContent = building.name;
-    } else {
-      div.classList.add("undiscovered");
-      div.textContent = "???";
-    }
-
-    // Only allow click handler on undiscovered (but clicking won't reveal name)
-    if (!building.discovered) {
-      div.addEventListener("click", () => {
-        // Optional: maybe give feedback here? But no discovery on click
-        alert("Keep going! You’re getting close to unlocking this building.");
-      });
-    }
-
-    buildingsList.appendChild(div);
-  });
-}
-
-/* =========================
-   CLICK EFFECT WITH POPCORN ANIMATION
+   SPAWN BALL EFFECT (POPCORN)
 ========================= */
 function spawnBallEffect() {
   const ball = document.createElement("div");
   ball.className = "falling-ball";
 
-  // Random horizontal position slightly beyond clicker width sometimes
-  const baseX = Math.random() * 260;
-  // 30% chance to go slightly outside bounds (-20 to 280)
-  const extraX = Math.random() < 0.3 ? (Math.random() * 40 - 20) : 0;
-  ball.style.left = Math.min(Math.max(baseX + extraX, -20), 280) + "px";
+  // Random horizontal offset between -20px and +20px for slight pop direction
+  const xMove = (Math.random() * 40 - 20).toFixed(2) + "px";
+  ball.style.setProperty("--x-move", xMove);
+
+  // Position ball horizontally at clicker center top (account for ball width)
+  ball.style.left = (clicker.clientWidth / 2 - 6) + "px";
+  ball.style.top = "-20px";
 
   clicker.appendChild(ball);
 
-  setTimeout(() => {
-    ball.remove();
-  }, 1200);
+  setTimeout(() => ball.remove(), 1200);
 }
 
 /* =========================
@@ -145,79 +140,51 @@ function playClickSound() {
 }
 
 /* =========================
-   BOOST BUTTON & SHOP LOGIC
+   BUILDINGS UI & LOGIC
 ========================= */
+function renderBuildings() {
+  buildingsList.innerHTML = "";
 
-let boostCost = 10;
-boostBtn.textContent = ""; // Clear button text for icon-only design
-boostBtn.setAttribute("data-desc", `Buy Boost (+1 goal/click) — Cost: ${boostCost}`);
-// You can later add an icon image inside boostBtn if you want
+  buildings.forEach((building) => {
+    const div = document.createElement("div");
+    div.classList.add("building");
 
-boostBtn.addEventListener("click", () => {
-  if (goals >= boostCost) {
-    goals -= boostCost;
-    goalsPerClick++;
-    boostCost = Math.floor(boostCost * 1.5);
-    boostBtn.setAttribute("data-desc", `Buy Boost (+1 goal/click) — Cost: ${boostCost}`);
-    goalsEl.textContent = goals;
-    gpcEl.textContent = goalsPerClick;
+    if (building.discovered) {
+      div.classList.add("discovered");
+      div.textContent = building.name;
 
-    // Remove click effect after buying boost
-    if (visualUnlocked) {
-      visualUnlocked = false;
-      visualBtn.textContent = "Unlock Click Effect (20 clicks)";
-      visualBtn.disabled = true;
+      // leave space for future design (padding-right in CSS)
+    } else {
+      div.classList.add("undiscovered");
+      // Show ??? instead of name
+      div.textContent = "";
     }
-  }
-});
+
+    // Clicking undiscovered buildings does nothing (no discovery)
+    if (building.discovered) {
+      div.addEventListener("click", () => {
+        // Placeholder: You can add building interaction here later
+        alert(`You clicked on ${building.name}`);
+      });
+    }
+
+    buildingsList.appendChild(div);
+  });
+}
+
+function checkBuildingDiscoveries() {
+  buildings.forEach((building) => {
+    if (!building.discovered && goals >= building.cost * 0.75) {
+      building.discovered = true;
+    }
+  });
+  renderBuildings();
+}
 
 /* =========================
-   INITIAL UI
+   INITIAL UI SETUP
 ========================= */
 goalsEl.textContent = goals;
 gpcEl.textContent = goalsPerClick;
 
 renderBuildings();
-
-/* =========================
-   NEWS TICKER ROTATION
-========================= */
-const newsTicker = document.getElementById("newsTicker");
-const newsMessages = [
-  "Welcome to Rocket League Clicker!",
-  "Unlock click effects and sounds!",
-  "Buy boosts to score more goals!",
-  "Discover all buildings and upgrade!",
-  "Click fast and climb the leaderboard!",
-];
-
-let currentNewsIndex = 0;
-
-// Create two span elements for fade in/out effect
-const newsSpan1 = document.createElement("span");
-const newsSpan2 = document.createElement("span");
-newsTicker.appendChild(newsSpan1);
-newsTicker.appendChild(newsSpan2);
-
-newsSpan1.style.opacity = "1";
-newsSpan2.style.opacity = "0";
-
-newsSpan1.textContent = newsMessages[currentNewsIndex];
-
-function rotateNews() {
-  const nextIndex = (currentNewsIndex + 1) % newsMessages.length;
-  const fadeOutSpan = currentNewsIndex % 2 === 0 ? newsSpan1 : newsSpan2;
-  const fadeInSpan = currentNewsIndex % 2 === 0 ? newsSpan2 : newsSpan1;
-
-  fadeInSpan.textContent = newsMessages[nextIndex];
-
-  fadeOutSpan.style.transition = "opacity 1s ease-in-out";
-  fadeInSpan.style.transition = "opacity 1s ease-in-out";
-
-  fadeOutSpan.style.opacity = "0";
-  fadeInSpan.style.opacity = "1";
-
-  currentNewsIndex = nextIndex;
-}
-
-setInterval(rotateNews, 4000);
