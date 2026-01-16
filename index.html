@@ -10,13 +10,13 @@
 <!-- TOP BAR -->
 <div id="topBar">
   <div id="gameTitle">
-    <img src="assets/Rocket_League_logo.svg.png" />
+    <img src="assets/Rocket_League_logo.svg.png" alt="Rocket League Logo" />
     Rocket League Clicker
   </div>
 
   <div id="topControls">
     <button id="achievementsBtn">Achievements</button>
-    <div id="newsTicker">Welcome to Rocket League Clicker!</div>
+    <div id="newsTicker" aria-live="polite" aria-atomic="true"></div>
     <button id="settingsBtn">Settings</button>
   </div>
 </div>
@@ -28,8 +28,8 @@
   <div id="leftPanel">
     <div id="goalsDisplay">Goals: <span id="goals">0</span></div>
 
-    <div id="clickerWrapper">
-      <img src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png" />
+    <div id="clickerWrapper" aria-label="Clicker area" role="button" tabindex="0">
+      <img src="assets/14-141884_winner-or-nominee-of-more-than-150-game.png" alt="Rocket League Ball" />
       <div class="falling-balls"></div>
     </div>
 
@@ -39,35 +39,36 @@
   <!-- MIDDLE: BUILDINGS -->
   <div id="middlePanel">
     <div class="panelTitle">Buildings</div>
-    <div id="buildingsList"></div>
+    <div id="buildingsList" tabindex="0" aria-label="List of buildings"></div>
   </div>
 
- <section class="sidebar">
+  <!-- RIGHT: SHOP -->
+  <section class="sidebar">
 
-  <div class="shop-panel">
-    <h2>Game Shop</h2>
-    <div class="shop-scroll" id="gameShop">
-      <button id="boostBtn">
-        Buy Boost (+1 goal/click) — Cost: <span id="boostCost">10</span>
-      </button>
+    <div class="shop-panel">
+      <h2>Game Shop</h2>
+      <div class="shop-scroll" id="gameShop">
+        <button id="boostBtn" data-desc="Buy Boost (+1 goal/click) — Cost: 10" aria-label="Buy Boost">
+          <!-- <img src="assets/icons/boost-icon.png" alt="Boost Icon" /> -->
+        </button>
+        <!-- Add more upgrade buttons here -->
+      </div>
     </div>
-  </div>
 
-  <div class="shop-panel">
-    <h2>Experience Shop</h2>
-    <div class="shop-scroll" id="experienceShop">
-      <button id="unlockVisualBtn" disabled>
-        Unlock Click Effect (20 clicks)
-      </button>
+    <div class="shop-panel">
+      <h2>Experience Shop</h2>
+      <div class="shop-scroll" id="experienceShop">
+        <button id="unlockVisualBtn" disabled data-desc="Unlock Click Effect (20 clicks)" aria-label="Unlock Click Effect">
+          <!-- <img src="assets/icons/visual-icon.png" alt="Visual Icon" /> -->
+        </button>
 
-      <button id="unlockSoundBtn" disabled>
-        Unlock Click Sound (50 clicks)
-      </button>
+        <button id="unlockSoundBtn" disabled data-desc="Unlock Click Sound (50 clicks)" aria-label="Unlock Click Sound">
+          <!-- <img src="assets/icons/sound-icon.png" alt="Sound Icon" /> -->
+        </button>
+      </div>
     </div>
-  </div>
 
-</section>
-
+  </section>
 
 </div>
 
