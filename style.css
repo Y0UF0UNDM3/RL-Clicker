@@ -1,83 +1,98 @@
-#gameTitle img {
-  max-height: 36px !important;
-  max-width: 36px !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain;
-}
-
+/* =========================
+   GLOBAL RESET
+========================= */
 * {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
   background: #050b1f;
-  color: #fff;
+  color: #ffffff;
+  height: 100vh;
   overflow: hidden;
 }
 
-/* TOP BAR */
+/* =========================
+   TOP BAR (COOKIE CLICKER STYLE)
+========================= */
 #topBar {
   background: #182446;
   border-bottom: 2px solid #fca311;
-  padding: 6px;
+  padding: 4px 6px;
 }
 
+/* Title */
 #gameTitle {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-  font-size: 22px;
+  justify-content: center;
+  gap: 8px;
+  font-size: 20px;
   font-weight: bold;
 }
 
+/* HARD LOCK LOGO SIZE — CRITICAL */
 #gameTitle img {
-  height: 32px;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+  display: block;
 }
 
+/* Controls under title */
 #topControls {
-  margin-top: 6px;
+  margin-top: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 #topControls button {
   background: #fca311;
+  color: #000;
   border: none;
   padding: 4px 8px;
   cursor: pointer;
+  font-weight: bold;
 }
 
+/* News ticker (NO scrolling text) */
 #newsTicker {
   background: #000;
   border: 2px solid #fca311;
-  padding: 6px 12px;
-  min-width: 460px;
+  padding: 6px 14px;
+  min-width: 420px;
   text-align: center;
   cursor: pointer;
+  font-size: 14px;
 }
 
-/* GAME GRID */
+/* =========================
+   GAME LAYOUT (REAL COOKIE CLICKER)
+========================= */
 #game {
   display: grid;
   grid-template-columns: 340px 1fr 260px;
-  height: calc(100vh - 96px);
+  height: calc(100vh - 86px);
 }
 
-/* LEFT PANEL */
+/* =========================
+   LEFT PANEL (CLICKER)
+========================= */
 #leftPanel {
-  text-align: center;
   padding: 10px;
+  text-align: center;
 }
 
 #goalsDisplay {
   font-size: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 #clickerWrapper {
@@ -87,10 +102,12 @@ body {
 
 #clickerWrapper img {
   width: 260px;
+  user-select: none;
 }
 
 #gpc {
   margin-top: 6px;
+  font-size: 14px;
 }
 
 /* Falling balls */
@@ -104,7 +121,7 @@ body {
   position: absolute;
   width: 18px;
   height: 18px;
-  background: url("assets/rocket-league-ball.png") center/contain no-repeat;
+  background: url("assets/rocket-league-ball.png") center / contain no-repeat;
   animation: fall 1.2s forwards;
 }
 
@@ -115,10 +132,12 @@ body {
   }
 }
 
-/* MIDDLE PANEL */
+/* =========================
+   MIDDLE PANEL (BUILDINGS)
+========================= */
 #middlePanel {
-  border-left: 2px solid #111;
-  border-right: 2px solid #111;
+  border-left: 2px solid #0c1025;
+  border-right: 2px solid #0c1025;
   display: flex;
   flex-direction: column;
 }
@@ -128,6 +147,7 @@ body {
   padding: 6px;
   font-weight: bold;
   border-bottom: 1px solid #333;
+  background: #101935;
 }
 
 #buildingsList {
@@ -136,12 +156,14 @@ body {
   padding: 6px;
 }
 
+/* Dense, tall building entries */
 .building {
   background: #1c2541;
   border: 1px solid #444;
-  padding: 8px;
+  padding: 10px;
   margin-bottom: 6px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .building.locked {
@@ -149,7 +171,9 @@ body {
   cursor: default;
 }
 
-/* RIGHT PANEL */
+/* =========================
+   RIGHT PANEL (SHOP)
+========================= */
 #rightPanel {
   padding: 8px;
 }
@@ -158,12 +182,16 @@ body {
   width: 100%;
   padding: 10px;
   background: #fca311;
+  color: #000;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  text-align: center;
 }
 
-/* MODALS */
+/* =========================
+   MODALS
+========================= */
 .modal[hidden] {
   display: none !important;
 }
@@ -171,10 +199,11 @@ body {
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .modalBox {
@@ -183,4 +212,12 @@ body {
   padding: 20px;
   width: 300px;
   text-align: center;
+}
+
+.modalBox button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #fca311;
+  border: none;
+  cursor: pointer;
 }
