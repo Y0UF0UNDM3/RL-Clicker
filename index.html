@@ -42,15 +42,32 @@
     <div id="buildingsList"></div>
   </div>
 
-  <!-- RIGHT: SHOP -->
-  <div id="rightPanel">
-    <div class="panelTitle">Shop</div>
-    <button id="boostBtn">
-      Buy Boost<br />
-      +1 goal / click<br />
-      Cost: <span id="boostCost">10</span>
-    </button>
+ <section class="sidebar">
+
+  <div class="shop-panel">
+    <h2>Game Shop</h2>
+    <div class="shop-scroll" id="gameShop">
+      <button id="boostBtn">
+        Buy Boost (+1 goal/click) — Cost: <span id="boostCost">10</span>
+      </button>
+    </div>
   </div>
+
+  <div class="shop-panel">
+    <h2>Experience Shop</h2>
+    <div class="shop-scroll" id="experienceShop">
+      <button id="unlockVisualBtn" disabled>
+        Unlock Click Effect (20 clicks)
+      </button>
+
+      <button id="unlockSoundBtn" disabled>
+        Unlock Click Sound (50 clicks)
+      </button>
+    </div>
+  </div>
+
+</section>
+
 
 </div>
 
