@@ -91,3 +91,50 @@ function playClickSound() {
 ========================= */
 goalsEl.textContent = goals;
 gpcEl.textContent = goalsPerClick;
+
+/* =========================
+   BUILDINGS STATE & UI
+========================= */
+const buildings = [
+  { id: 1, name: "Building 1", discovered: false },
+  { id: 2, name: "Building 2", discovered: false },
+  { id: 3, name: "Building 3", discovered: false },
+  { id: 4, name: "Building 4", discovered: false },
+  { id: 5, name: "Building 5", discovered: false }
+  // Add more buildings as you like
+];
+
+const buildingsList = document.getElementById("buildingsList");
+
+function renderBuildings() {
+  buildingsList.innerHTML = "";
+
+  buildings.forEach((building) => {
+    const div = document.createElement("div");
+    div.classList.add("building");
+
+    if (building.discovered) {
+      div.classList.add("discovered");
+      div.textContent = building.name;
+
+      // leave space for future design here (padding-right in CSS)
+      // You can append child elements here for future designs
+    } else {
+      div.classList.add("undiscovered");
+      div.textContent = building.name;
+    }
+
+    // Clicking undiscovered buildings discovers them
+    if (!building.discovered) {
+      div.addEventListener("click", () => {
+        building.discovered = true;
+        renderBuildings();
+      });
+    }
+
+    buildingsList.appendChild(div);
+  });
+}
+
+// Initial render
+renderBuildings();
